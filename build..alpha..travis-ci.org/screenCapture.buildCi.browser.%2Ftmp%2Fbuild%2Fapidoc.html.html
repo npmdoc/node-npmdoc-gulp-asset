@@ -89,45 +89,6 @@
 
     </ol></li>
 
-    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-asset.config">module gulp-asset.config</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.gulp-asset.config.config">
-            function <span class="apidocSignatureSpan">gulp-asset.</span>config
-            <span class="apidocSignatureSpan">(opts)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-asset.replace">module gulp-asset.replace</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.gulp-asset.replace.replace">
-            function <span class="apidocSignatureSpan">gulp-asset.</span>replace
-            <span class="apidocSignatureSpan">()</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-asset.rev">module gulp-asset.rev</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.gulp-asset.rev.rev">
-            function <span class="apidocSignatureSpan">gulp-asset.</span>rev
-            <span class="apidocSignatureSpan">(opts)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
 </ol></div>
 
 <div class="apidocSectionDiv">
@@ -145,21 +106,22 @@
 	defaults = _.defaults(opts, defaults);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-	npm install --save-dev gulp-asset
+var gutil = require('gulp-util');
+var through = require('through2');
+var fs = require('fs');
+var _ = require('underscore');
+var pkg = require('./package.json');
+var version = pkg.version;
 
-## Usage
-
-	var gulp = require('gulp');
-	var asset = require('gulp-asset');
-
-	asset.<span class="apidocCodeKeywordSpan">config</span>({
-		prefix: ['http://cdn1.google.com', 'http://cdn2.google.com']
-	});
-
-	gulp.task('js', function () {
-		gulp.src('src/assets/js/**/*.js')
-			.pipe(asset.rev())
-			.pipe(asset.replace())
+// Use .<span class="apidocCodeKeywordSpan">config</span>({}) command to modify these defaults
+var defaults = {
+	prefix: '', // can be string or array of different prefixes.
+	src: 'src', // specify where your src code is located
+	dest: 'dist', // specify where your src code is located
+	assetPath: '/assets/', // specify where you
+	manifest: 'manifest.js', // filename format for saving the manifest file (a revision number will be put on it)
+	globalVar: '__assets', // the global var to assign manifest to. It will attach it to the 'window' (ie, window
+.__assets).
 ...</pre></li>
     </ul>
 
@@ -253,20 +215,23 @@ function(match) {
 	});
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-	asset.config({
-		prefix: ['http://cdn1.google.com', 'http://cdn2.google.com']
-	});
+ * gulp-asset
+ *
+ * Inspired by "gulp-rev" and "gulp-replace" modules, some of their code is used in this module.
+ * This module was created as an adaptation to both create md5 revision files and replace
+ * all "asset://" urls within the contents of the files with the new revision filenames.
+ *
+ * You should run .rev() on all tasks where you want a new filename to be created based on md5 hash of contents (ie, img, css, fonts
+, etc)
+ * You should run .<span class="apidocCodeKeywordSpan">replace</span>() on all tasks where you want them scanned for asset:// urls
+ (ie, css, html, etc)
+ */
 
-	gulp.task('js', function () {
-		gulp.src('src/assets/js/**/*.js')
-			.pipe(asset.rev())
-			.pipe(asset.<span class="apidocCodeKeywordSpan">replace</span>())
-			.pipe(gulp.dest('dist/assets/js'));
-	});
-
-## Examples
-
-Example JavaScript file
+var crypto = require('crypto');
+var path = require('path');
+var gutil = require('gulp-util');
+var through = require('through2');
+var fs = require('fs');
 ...</pre></li>
     </ul>
 
@@ -335,261 +300,26 @@ Example JavaScript file
 	});
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
+/**
+ * gulp-asset
+ *
+ * Inspired by "gulp-rev" and "gulp-replace" modules, some of their code is used in this module.
+ * This module was created as an adaptation to both create md5 revision files and replace
+ * all "asset://" urls within the contents of the files with the new revision filenames.
+ *
+ * You should run .<span class="apidocCodeKeywordSpan">rev</span>() on all tasks where you want a new filename to be created based
+ on md5 hash of contents (ie, img, css, fonts, etc)
+ * You should run .replace() on all tasks where you want them scanned for asset:// urls (ie, css, html, etc)
+ */
 
-	asset.config({
-		prefix: ['http://cdn1.google.com', 'http://cdn2.google.com']
-	});
-
-	gulp.task('js', function () {
-		gulp.src('src/assets/js/**/*.js')
-			.pipe(asset.<span class="apidocCodeKeywordSpan">rev</span>())
-			.pipe(asset.replace())
-			.pipe(gulp.dest('dist/assets/js'));
-	});
-
-## Examples
-
-Example JavaScript file
+var crypto = require('crypto');
+var path = require('path');
+var gutil = require('gulp-util');
+var through = require('through2');
 ...</pre></li>
     </ul>
 
 
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.gulp-asset.config" id="apidoc.module.gulp-asset.config">module gulp-asset.config</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.gulp-asset.config.config" id="apidoc.element.gulp-asset.config.config">
-        function <span class="apidocSignatureSpan">gulp-asset.</span>config
-        <span class="apidocSignatureSpan">(opts)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">config = function (opts) {
-	defaults = _.defaults(opts, defaults);
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-	npm install --save-dev gulp-asset
-
-## Usage
-
-	var gulp = require('gulp');
-	var asset = require('gulp-asset');
-
-	asset.<span class="apidocCodeKeywordSpan">config</span>({
-		prefix: ['http://cdn1.google.com', 'http://cdn2.google.com']
-	});
-
-	gulp.task('js', function () {
-		gulp.src('src/assets/js/**/*.js')
-			.pipe(asset.rev())
-			.pipe(asset.replace())
-...</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.gulp-asset.replace" id="apidoc.module.gulp-asset.replace">module gulp-asset.replace</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.gulp-asset.replace.replace" id="apidoc.element.gulp-asset.replace.replace">
-        function <span class="apidocSignatureSpan">gulp-asset.</span>replace
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">replace = function () {
-	var prefix = _.flatten([defaults.prefix]);
-	var interval = defaults.interval;
-	var assetPath = defaults.assetPath;
-
-	return through.obj(function(file, enc, cb) {
-		var newContents = file.contents;
-		var _this = this;
-		var completed = {};
-		var repeats = 0;
-		(function recurse() {
-			var failed = repeats &gt;= defaults.repeat;
-
-			// Find how many are files are still missing from the manifest,
-			// if some are missing don't continue, bypassing the regex should hopefully be a less expensive task
-			if (!_.isEmpty(completed)) {
-				var keys = _.keys(completed);
-				var missing = 0;
-				keys.forEach(function(key) {
-					missing += typeof manifest[key] == 'undefined';
-				});
-				if (missing &gt; 0 &amp;&amp; !failed) {
-					repeats++;
-					setTimeout(recurse, interval);
-					return;
-				}
-			}
-
-			// If there are none missing then scan contents
-			newContents = new Buffer(String(file.contents).replace(/\b((asset:\/\/?)[^#!%&amp;*$?'"\s()&lt;&gt;]*(?:\([\w\d]*\)|([\.\w*]|\/)))/ig,
-function(match) {
-				// Replace placeholder with correct base
-				var filepath = match.replace('asset://', assetPath);
-
-				// Handle matches where it is just the base protocol to replace
-				// Useful for your javascript expressions wher url is constructed using expression
-				if (match == 'asset://') {
-					return filepath;
-				}
-
-				// If manifest then return special manifest path
-				if (filepath == path.join(assetPath, defaults.manifest)) {
-					return prefix[0] + manifestFileName(opts);
-				}
-
-				completed[filepath] = false;
-
-				// Check if file already in manifest, if it is, use it
-				var found = manifest[filepath];
-
-				// Else wait for it
-				if (!found) {
-					// @TODO: We could insert a 404 url in here if "failed" is true, probs not needed though
-					return match;
-				}
-				// Get output filename and index for use in switching between prefixes
-				var output = found.dest;
-				completed[filepath] = true;
-				return output;
-			}));
-
-			// If all matches have been completely replaced, finish, else recurse
-			if (_.indexOf(_.values(completed), false) == -1 || failed) {
-				if (failed) {
-					var errored = _.compact(_.map(completed, function(val, key) { return !val ? gutil.colors.red(key): undefined }));
-					var fileName = path.join(file.path.replace(file.cwd, '').replace(defaults.src, defaults.dest));
-					var message = gutil.colors.yellow(fileName) + ': Stalled or unable to process asset url: ' + errored.join(', ') + '. This can
- occur if the file doesn\'t exist or is very large and takes time to process. You can updated the "interval" option or the "repeats".';
-					_this.emit('error', new gutil.PluginError('gulp-asset', message));
-				}
-				file.contents = newContents;
-				_this.push(file);
-				cb();
-			} else {
-				repeats++;
-				setTimeout(recurse, interval);
-			}
-		})();
-	});
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-	asset.config({
-		prefix: ['http://cdn1.google.com', 'http://cdn2.google.com']
-	});
-
-	gulp.task('js', function () {
-		gulp.src('src/assets/js/**/*.js')
-			.pipe(asset.rev())
-			.pipe(asset.<span class="apidocCodeKeywordSpan">replace</span>())
-			.pipe(gulp.dest('dist/assets/js'));
-	});
-
-## Examples
-
-Example JavaScript file
-...</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.gulp-asset.rev" id="apidoc.module.gulp-asset.rev">module gulp-asset.rev</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.gulp-asset.rev.rev" id="apidoc.element.gulp-asset.rev.rev">
-        function <span class="apidocSignatureSpan">gulp-asset.</span>rev
-        <span class="apidocSignatureSpan">(opts)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">rev = function (opts) {
-	var opts = opts || {};
-	var shouldHash = typeof opts.hash != 'undefined' ? opts.hash : defaults.hash;
-	var prefix = _.flatten([defaults.prefix]);
-	var shouldPrefix = typeof opts.shouldPrefix != 'undefined' ? opts.shouldPrefix : true;
-	return through.obj(function(file, enc, cb) {
-		var originalPath = file.path;
-
-		// Get hash of contents
-		var hash = md5(opts, file.contents.toString());
-
-		// Construct new filename
-		var ext = path.extname(file.path);
-		var basePath = path.basename(file.path, ext);
-		var filename = typeof hash !== 'undefined' ? basePath + '-' + hash + ext : basePath + ext;
-		file.path = path.join(path.dirname(file.path), filename);
-
-		// Add to manifest
-		var base = path.join(file.cwd, defaults.src);
-		var key = originalPath.replace(base, '');
-
-		// @TODO: Instead of this it could use "glob" module to regex delete files
-		// Check for existing value and whether cleanup is set
-		var existing = manifest[key];
-		if (existing &amp;&amp; existing.src &amp;&amp; defaults.cleanup) {
-			// Delete the file
-			fs.unlink(path.join(file.cwd, defaults.dest, existing.src));
-		} else if (defaults.cleanup &amp;&amp; shouldHash) {
-			// Check if cleanup and hash enabled then we can remove any non hashed version from dest directory
-			var nonHashPath = path.join(path.dirname(originalPath), basePath + ext).replace(base, '');
-			var absPath = path.join(file.cwd, defaults.dest, nonHashPath);
-			fs.exists(absPath, function(exists) {
-				if (!exists) return;
-				fs.unlink(absPath);
-			});
-		}
-
-		var filePrefix = shouldPrefix ? prefix[index % prefix.length] : '';
-
-		// Finally add new value to manifest
-		var src = file.path.replace(base, '');
-		manifest[key] = {
-			index: index++,
-			src: src,
-			dest: filePrefix + src
-		};
-
-		// Write manifest file
-		writeManifest();
-
-		// Return and continue
-		this.push(file);
-		cb();
-	});
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-
-	asset.config({
-		prefix: ['http://cdn1.google.com', 'http://cdn2.google.com']
-	});
-
-	gulp.task('js', function () {
-		gulp.src('src/assets/js/**/*.js')
-			.pipe(asset.<span class="apidocCodeKeywordSpan">rev</span>())
-			.pipe(asset.replace())
-			.pipe(gulp.dest('dist/assets/js'));
-	});
-
-## Examples
-
-Example JavaScript file
-...</pre></li>
-    </ul>
 
 
 </div>
