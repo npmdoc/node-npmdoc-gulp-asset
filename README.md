@@ -1,4 +1,7 @@
-# api documentation for  [gulp-asset (v0.0.8)](https://github.com/inlight-media/gulp-asset)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-asset.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-asset) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-asset.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-asset)
+# npmdoc-gulp-asset
+
+#### basic api documentation for  [gulp-asset (v0.0.8)](https://github.com/inlight-media/gulp-asset)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-asset.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-asset) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-asset.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-asset)
+
 #### Gulp module for managing asset revisions and using multiple domains to server assets.
 
 [![NPM](https://nodei.co/npm/gulp-asset.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/gulp-asset)
@@ -63,7 +66,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "version": "0.0.8"
+    "version": "0.0.8",
+    "bin": {}
 }
 ```
 
